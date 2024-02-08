@@ -20,7 +20,7 @@ impl<'a> Server<'a> {
         for stream in connection_listener.incoming() {
             let mut stream = stream.unwrap();
             println!("Connection .....");
-            let mut read_buffer = [0;200];
+            let mut read_buffer = [0;2048]; //缓存太小了
             stream.read(&mut read_buffer).unwrap();
             let req:HttpRequest = String::from_utf8(read_buffer.to_vec()).unwrap().into();
             Router::route(req,&mut stream)
